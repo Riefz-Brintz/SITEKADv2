@@ -1,0 +1,24 @@
+/*navbar*/
+.navbar-fixed{
+	position: fixed !important;
+	top: 0;
+	width: 100%;
+}
+.content-header{
+	margin-top: 2rem;
+}
+
+.main-sidebar, .main-sidebar:before{
+	width: 200px 
+}
+
+@media (min-width: 576px){
+
+.content-wrapper, .main-footer, .main-header{
+	margin-left: 200px;
+
+}
+.content-wrapper{
+	min-height: 1000px !important;
+}
+}

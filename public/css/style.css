@@ -1,0 +1,97 @@
+
+
+.modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 1rem;
+    border-top: 3px solid #0d0d0d;
+    border-bottom-right-radius: .3rem;
+    border-bottom-left-radius: .3rem;
+}
+
+/*card*/
+.card-header{
+	padding: .5rem 1rem;
+	border-bottom-width: 5px;
+	border-bottom-color: #343a40;
+}
+
+
+.card{
+	border-radius: 0;
+}
+
+
+/*jarak*/
+.px{
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.py{
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+.mx{
+	margin-left: 0;
+	margin-right: 0;
+}
+.mb{
+	margin-bottom: 0 !important;
+}
+.mb-1{
+	margin-bottom: .5rem;
+}
+.mb-2{
+	margin-bottom: 1rem;
+}
+
+.mt-2{
+	margin-top: 1rem;
+}
+/*button*/
+.nav-pills .nav-link{
+	border-radius: 0;
+}
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link{
+	background-color: #343a40;
+}
+.table .thead-dark th{
+	background-color: #343a40;
+	border-color: #343a40;
+}
+.nav-pills .nav-link:not(.active):hover{
+	color: #343a40;
+}
+
+.modal-header {
+	border-bottom: 3px solid #121313;
+}
+
+
+/*table*/
+
+table.dataTable,
+.card-body>.table{
+	position: relative;
+	display: block;
+	overflow-x: auto;
+	overflow-y: hidden;
+
+}
+table.dataTable thead>tr>th.sorting_asc, table.dataTable thead>tr>th.sorting_desc, table.dataTable thead>tr>th.sorting, table.dataTable thead>tr>td.sorting_asc, table.dataTable thead>tr>td.sorting_desc, table.dataTable thead>tr>td.sorting,
+table.table-bordered.dataTable tbody th, table.table-bordered.dataTable tbody td{
+	white-space: nowrap;
+}
+.dt-buttons{
+	position: absolute;
+	top: 0;
+	left: 30%;
+}
+
+.table thead th {
+	vertical-align: middle;
+	/* border-bottom: 2px solid #dee2e6; */
+}
