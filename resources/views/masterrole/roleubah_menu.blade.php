@@ -1,7 +1,7 @@
  {{-- Tabel roledetail--}}
  <div class="card-body">
   <span style="float: right;">
-    <a href="#" class="btn btn-info btn-sm mb-2" id="btn-modal-tambah" onclick="refreshroledetail()" data-toggle="modal" data-target="#modal_roledetail">Tambah Data Role Detail</a>    
+    <a href="#" class="btn btn-primary btn-sm mb-2" id="btn-modal-tambah" onclick="refreshroledetail()" data-toggle="modal" data-target="#modal_roledetail"><i class="fas fa-plus mr-2"></i>Tambah Akses Menu</a>    
   </span>
   <div class="table-responsive table-sm">
     <table id="tabelroledetail" class="table table-bordered">
@@ -24,9 +24,9 @@
         <?php $no++ ;?>
         <tr id="bariske{{ $data->idroledetail }}">
           <td >{{ $no }}</td>
-          <td style="width:140px ; text-align: center;" nowrap>
-            <a id="btnedit_roledetail" href="#" onclick="editroledetail({{ $data->idroledetail }})" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal_roledetail" >Edit</a> | 
-            <a href="#" onclick="hapusbarisroledetail({{ $data->idroledetail }})" class="btn btn-sm btn-danger">Hapus</a>
+          <td style="width:80px ; text-align: center;" nowrap>
+            <a id="btnedit_roledetail" href="#" onclick="editroledetail({{ $data->idroledetail }})" data-toggle="modal" data-target="#modal_roledetail" title="Edit Data"><i class="fas fa-edit mr-2"></i></a>
+            <a href="#" onclick="hapusbarisroledetail({{ $data->idroledetail }})" title="Hapus Data"> <i class="fas fa-trash mr-2"></i></a>
           </td>
 
           <td><input style="width:250px ;" class="input_table" id="nama_menu{{ $data->idroledetail }}" readonly type="text" name="nama_menu[]" value="{{ $data->getmenu->nama_menu }}"></td>

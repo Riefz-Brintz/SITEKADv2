@@ -46,7 +46,6 @@ Route::get('/getProgramAsuransi/{id}', 'TadController@getProgramAsuransi')->name
 Route::get('/getBank/{id}', 'TadController@getBank')->name('Tad.getBank');
 
 Route::get('/User', 'UserController@index')->name('User');
-Route::get('/User2', 'UserController@index')->name('User2');
 Route::get('/User/add', 'UserController@create')->name('User.tambah');
 Route::get('/User/{id}/edit', 'UserController@edit')->name('User.ubah');
 Route::get('/User/hapus/{id}', 'UserController@destroy')->name('User.hapus');

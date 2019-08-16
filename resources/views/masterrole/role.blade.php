@@ -39,7 +39,7 @@
                    @if (session('tambah')=="Ya")
                    <span style="float: right;">
                     <a href="{{ route('Role.tambah') }}" class="btn btn-primary a-btn-slide-text">
-                      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                      <i class="fas fa-plus mr-2"></i>
                       <span><strong>Tambah Data Role</strong></span>            
                     </a>
                   </h3>

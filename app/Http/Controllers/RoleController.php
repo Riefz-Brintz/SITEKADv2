@@ -71,17 +71,19 @@ class RoleController extends Controller
         ->addIndexColumn()
 
         ->addColumn('action', function($row){
-          $btn = ' <div class="btn-group">
-                        <button type="button" class="btn btn-info">Action</button>
-                        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-                          <span class="caret"></span>
-                          <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <div class="dropdown-menu" role="menu">
-                          <a class="dropdown-item" href="'.url('/Role/'.$row->idrole.'/edit').'">Ubah</a>
-                          <a class="dropdown-item" href="javascript:void(0)" onclick="hapusRole('.$row->idrole.')">Hapus</a>
-                        </div>
-                      </div>';
+          $btn = '<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                  <div class="btn-group" role="group">
+                    <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Tindakan
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                      <a class="dropdown-item" href="'.url('/Role/'.$row->idrole.'/edit').'"><i class="fas fa-edit mr-2"></i>Ubah</a>
+                      <a class="dropdown-item" onclick="hapusRole('.$row->idrole.')"><i class="fas fa-trash mr-2"></i>Hapus</a>
+                    </div>
+                  </div>
+                </div>';
+
+
           return $btn;
       })
       //   ->rawColumns(['action'])

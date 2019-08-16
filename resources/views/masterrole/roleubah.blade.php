@@ -31,7 +31,7 @@
                 <form id="formRole" method="POST" action="{{ route('Role.ubahdata',$item->idrole) }}" enctype="multipart/form-data">
                     <div class="card">
                         <div class="card-header">
-                            <h4><b>Tambah Data Role</b></h4>
+                            <h4><b>Ubah Data Role</b></h4>
                         </div>
 
                         @csrf
@@ -87,7 +87,7 @@
                             <div class="card-header px py">
                                 <ul class="nav nav-pills card-header-pills mx" id="pills-tab" role="tablist">
                                     <li class="nav-item">
-                                        <a class="nav-link active" id="pills-role-tab" data-toggle="pill" href="#pills-role" role="tab" aria-controls="pills-role" aria-selected="true">Detail Role</a>
+                                        <a class="nav-link active" id="pills-role-tab" data-toggle="pill" href="#pills-role" role="tab" aria-controls="pills-role" aria-selected="true">Akses Menu</a>
                                     </li>
                                 </ul>
 
@@ -104,7 +104,7 @@
                                 <div class="col-md-4"></div>    
                                 <div class="col-md-4 ">
                                     <button  id="simpanRole" class="btn btn-block btn-primary">
-                                        Simpan Data
+                                        <i class="fas fa-save mr-2"></i>Simpan Data
                                     </button>
                                 </div>
                             </div>

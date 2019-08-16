@@ -9,6 +9,9 @@ use App\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
+use Session;
+
 use DB;
 
 class UserController extends Controller
@@ -41,7 +44,10 @@ class UserController extends Controller
     }
 
     public function index(){   
+
+        $this->cekakses();
         $User = User::orderBy('id','Desc')->where('is_deleted',0)->with('getcabang','getrole')->get();
+
         return view('masterUser.User',compact('User'));
       /**
      * Show the form for creating a new resource.
@@ -49,14 +55,14 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    }
+  }
 
 
-    public function create(){
-        $Cabang = Cabang::orderBy('idcabang','Asc')->get();
-        $Role = Role::orderBy('idrole','Asc')->get();
-        return view("masterUser.Usertambah", compact("Role","Cabang"));
-    }
+  public function create(){
+    $Cabang = Cabang::orderBy('idcabang','Asc')->get();
+    $Role = Role::orderBy('idrole','Asc')->get();
+    return view("masterUser.Usertambah", compact("Role","Cabang"));
+}
 
 
 
@@ -69,10 +75,14 @@ class UserController extends Controller
 
     public function store(request $data)
     {
-
+       
         $data->validate([
-            'name' => 'required|unique:users'
+            'name' => 'required|unique:users',
+            'password'   => 'required|same:password_confirmation',
+
         ]);
+
+
 
         $dataUser = [
             'name'=>request('name'),
@@ -109,11 +119,14 @@ class UserController extends Controller
      */
     public function edit($id)
     {   
-        $item=DB::table('tbl_User')->where ('id',$id)->first();
+        // $datauser=DB::select('select * from users');
+        $Cabang = Cabang::orderBy('idcabang','Asc')->get();
+        $Role = Role::orderBy('idrole','Asc')->get();
 
-        $Menu = Menu::orderBy('idmenu','Asc')->get();
-       // dd($item);
-        return view('masterUser.Userubah',compact('item','Menu','UserDetail'));
+        $datauser = User::where('id',$id)->where('is_deleted',0)->with('getrole','getcabang')->first();
+
+        // dd($datauser);
+        return view('masteruser.userubah',compact('datauser','Cabang','Role'));
          // echo $User;
     }
 
@@ -126,41 +139,23 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd($request);
+
+        $request->validate([
+            // 'name' => 'required|unique:users',
+            'password'   => 'required|same:password_confirmation',
+
+        ]);
+
         $dataUser = [
-            'nama_User'=>request('nama_User'),
-            'keterangan'=>request('keterangan'),
-            'is_deleted'=>'0'
+            'name'=>request('name'),
+            'email'=>request('email'),
+            'password'=>Hash::make(request('password')),
+            'idrole'=>request('idrole'),
+            'idcabang'=>request('idcabang'),
+            'is_deleted'=>0,
         ];
-
         User::where('id',$id)->update($dataUser);
-
-        $rowUserdetail =  count($request->idmenu);
-        // Insert User detail
-        UserDetail::where('id',$id)->update(['is_deleted'=>1]);
-
-
-            // $dataUserdetail = array();
-        for ($i=0; $i < $rowUserdetail; $i++) {
-
-            $dataUserdetail = [    
-                'id'=>$id,
-                'idmenu' => request('idmenu')[$i],
-                'lihat' => request('lihat')[$i],
-                'tambah' => request('tambah')[$i],
-                'ubah' => request('ubah')[$i],
-                'hapus' => request('hapus')[$i],
-                'is_deleted'=>0
-            ]; 
-
-            if (request('iddetail')[$i]!=null || request('iddetail')[$i] != ''  ) {
-                UserDetail::where('iddetail',request('iddetail')[$i])->update($dataUserdetail);
-            } else{                                                                                        
-                UserDetail::create($dataUserdetail);
-            }
-
-        }
-        
-
 
         return redirect('/User')->with('status','berhasil ubah data');
     }

@@ -64,7 +64,7 @@
 
                                     <div class="input-field col-md-9 col-form-label-sm text-md-left"">
 
-                                    <input type="file" id="inputgambar" name="gambar" text="pilih ektp" required class="validate "/>
+                                    <input type="file" id="inputgambar" name="gambar" text="pilih ektp" class="validate "/>
                                     @if ($errors->has('inputgambar'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('inputgambar') }}</strong>
@@ -84,7 +84,7 @@
 
                                     <div class="input-field col-md-9 col-form-label-sm text-md-left"">
 
-                                    <input type="file" id="inputgambardiri" name="gambardiri" text="pilih ektp" required class="validate "/>
+                                    <input type="file" id="inputgambardiri" name="gambardiri" text="pilih ektp" class="validate "/>
                                     @if ($errors->has('inputgambardiri'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('inputgambardiri') }}</strong>

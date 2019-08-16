@@ -28,10 +28,10 @@
 
         <div class="row">
             <div class="col-12">
-                <form id="formUser" method="POST" action="{{ route('User.simpandata') }}" enctype="multipart/form-data">
+                <form id="formUser" method="POST" action="{{ route('User.ubahdata',$datauser->id) }}" enctype="multipart/form-data">
                     <div class="card">
                         <div class="card-header">
-                            <h4><b>Tambah Data User</b></h4>
+                            <h4><b>Ubah Data User</b></h4>
                         </div>
 
                         @csrf
@@ -48,7 +48,7 @@
                                         <label for="name" class="col-md-3 col-form-label-sm text-md-left">Nama User</label>
 
                                         <div class="col-md-9">
-                                            <input id="name" type="text" class="form-control form-control-sm{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
+                                            <input id="name" type="text" class="form-control form-control-sm{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ $datauser->name }}" required autofocus>
 
                                             @if ($errors->has('name'))
                                             <span class="invalid-feedback" role="alert">
@@ -63,7 +63,7 @@
                                         <label for="email" class="col-md-3 col-form-label-sm text-md-left">Email</label>
 
                                         <div class="col-md-9">
-                                            <input id="email" type="text" class="form-control form-control-sm{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
+                                            <input id="email" type="text" class="form-control form-control-sm{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ $datauser->email }}" required autofocus>
 
                                             @if ($errors->has('email'))
                                             <span class="invalid-feedback" role="alert">
@@ -77,7 +77,7 @@
                                         <label for="password" class="col-md-3 col-form-label text-md-left">Password</label>
 
                                         <div class="col-md-9">
-                                            <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+                                            <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password"  required>
 
                                             @if ($errors->has('password'))
                                             <span class="invalid-feedback" role="alert">
@@ -102,7 +102,8 @@
                                       <div class="col-md-9">
                                         <select class="form-control" id="selectcabang" name="idcabang"  style="width: 100%">
                                           @foreach ($Cabang as $data)
-                                          <option   value="{{ $data->idcabang }}">{{ $data->cabang }}</option>   
+                                          
+                                         <option {{ $data->idcabang == $datauser->getcabang->idcabang ? "selected":"" }} value="{{ $data ->idcabang }}">{{ $data ->cabang }}</option>  
                                           @endforeach
                                       </select>
                                   </div>
@@ -119,8 +120,8 @@
 
                               <div class="col-md-9">
                                 <select class="form-control" id="selectrole" name="idrole" style="width: 100%">
-                                  @foreach ($Role as $data)
-                                  <option   value="{{ $data->idrole }}">{{ $data->nama_role }}</option>   
+                                 @foreach ($Role as $data)
+                                  <option {{ $data->idrole == $datauser->getrole->idrole ? "selected":"" }} value="{{ $data ->idrole }}">{{ $data ->nama_role }}</option>   
                                   @endforeach
                               </select>
                           </div>
