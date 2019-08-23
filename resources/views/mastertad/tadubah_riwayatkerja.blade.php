@@ -2,7 +2,7 @@
 
  <div class="card-body">
   <span style="float: right;">
-    <a href="#" class="btn btn-info btn-sm mb-2" id="btn-modal-tambah" onclick="refreshriwayatkerja()" data-toggle="modal" data-target="#modal_riwayatkerja">Tambah Data riwayatkerja</a>    
+    <a href="#" class="btn btn-primary btn-sm mb-2" id="btn-modal-tambah" onclick="refreshriwayatkerja()" data-toggle="modal" data-target="#modal_riwayatkerja"><i class="fas fa-plus mr-2"></i>Tambah Data riwayatkerja</a>    
   </span>
   <div class="table-responsive table-sm">
     <table id="tabelriwayatkerja" class="table table-bordered">
@@ -29,11 +29,11 @@
         <?php $no = 0;?>
         @foreach ($TadRiwayatKerja as $data)
         <?php $no++ ;?>
-        <tr id="bariske{{ $data->idriwayatkerja }}">
+        <tr id="barisriwayatkerjake{{ $data->idriwayatkerja }}">
           <td >{{ $no }}</td>
-          <td style="width:140px ; text-align: center;" nowrap>
-            <a id="btnedit_riwayatkerja" href="#" onclick="editriwayatkerja({{ $data->idriwayatkerja }})" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal_riwayatkerja" >Edit</a> | 
-            <a href="#" onclick="hapusbarisriwayatkerja({{ $data->idriwayatkerja }})" class="btn btn-sm btn-danger">Hapus</a>
+          <td style="width:80px ; text-align: center;" nowrap>
+            <a id="btnedit_riwayatkerja" href="#" onclick="editriwayatkerja({{ $data->idriwayatkerja }})" title="Edit Data" data-toggle="modal" data-target="#modal_riwayatkerja" ><i class="fas fa-edit mr-2"></i></a> 
+            <a href="#" onclick="hapusbarisriwayatkerja({{ $data->idriwayatkerja }})" title="Hapus Data"><i class="fas fa-trash mr-2"></i></a>
           </td>
 
           {{-- <td>{{ $data->no_kpj }}</td> --}}

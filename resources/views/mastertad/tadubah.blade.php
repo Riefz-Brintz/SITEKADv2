@@ -348,7 +348,7 @@
                         </div>
 
                     </div>
-                    <div class="card border-danger mb">
+                    <div class="card mb">
                         <div class="card text-center mb">
                             <div class="card-header px py">
                                 <ul class="nav nav-pills card-header-pills mx" id="pills-tab" role="tablist">
@@ -426,7 +426,7 @@
                                 <div class="col-md-4"></div>    
                                 <div class="col-md-4 ">
                                     <button  id="simpantad" class="btn btn-block btn-primary">
-                                        Simpan Data
+                                        <i class="fas fa-save mr-2"></i>Simpan Data
                                     </button>
                                 </div>
                             </div>
@@ -506,12 +506,12 @@
 
         $(document).ready(function() {
 
-            // $('#tabelalamat td:nth-child(14)').hide();
-            // $('#tabelalamat th:nth-child(14)').hide();
-            // $('#tabelalamat td:nth-child(15)').hide();
-            // $('#tabelalamat th:nth-child(15)').hide();
-            // $('#tabelalamat td:nth-child(13)').hide();
-            // $('#tabelalamat th:nth-child(13)').hide();
+            $('#tabelalamat td:nth-child(14)').hide();
+            $('#tabelalamat th:nth-child(14)').hide();
+            $('#tabelalamat td:nth-child(15)').hide();
+            $('#tabelalamat th:nth-child(15)').hide();
+            $('#tabelalamat td:nth-child(13)').hide();
+            $('#tabelalamat th:nth-child(13)').hide();
 
 
             $('#selectprovinsi').select2();
@@ -520,11 +520,6 @@
             $("#selectprovinsi").change(function() {
                 setKota('0');
             });
-
-            // $("#selectkota").change(function() {
-            //     $("#idkota").val($(this).val());
-            //     $("#nm_kota").val($('#selectkota option:selected').text());
-            // });
 
 
         } );
@@ -660,11 +655,11 @@
             var idbaris = baris+1;
             // console.log(idbaris);
 
-            var markup = '<tr id="bariske'+idbaris+'">'+
+            var markup = '<tr id="barisalamatke'+idbaris+'">'+
             '<td>'+idbaris+'</td>'+
-            '<td style="width:140px ; text-align: center;" nowrap >'+
-            '<a href="#" id="btnedit_alamat" onclick="editalamat('+idbaris+')" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal_alamat2" >Edit</a> | '+
-            '<a href="#" onclick="hapusbarisalamat('+idbaris+')" class="btn btn-sm btn-danger">Hapus</a>'+
+            '<td style="width:80px ; text-align: center;" nowrap >'+
+            '<a id="btnedit_alamat" href="#" onclick="editalamat('+idbaris+')" data-toggle="modal" data-target="#modal_alamat" title="Edit Data"><i class="fas fa-edit mr-2"></i></a>'+
+            '<a href="#" onclick="hapusbarisalamat('+idbaris+')" title="Hapus Data"> <i class="fas fa-trash mr-2"></i></a>'+
             '</td>'+
 
             '<td><input style="width:100px ;" class="input_table" id="status_alamat'+idbaris+'" readonly type="text" name="status_alamat[]" value="'+$('#status_alamat').val()+'"></td>'+
@@ -694,9 +689,23 @@
         }
 
         function hapusbarisalamat(id){
-            $("#bariske"+id).remove();
-        }
+            Swal.fire({
+            title: "Hapus Data ?",
+            text: "Hapus Data Alamat",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: '#DD6B55',
+            confirmButtonText: 'Ya, Hapus',
+        // closeOnConfirm: false,
+                //closeOnCancel: false
 
+            }).then(function(isConfirm){
+              if (isConfirm.value===true){
+                $("#barisalamatke"+id).remove();
+            }
+        });
+        }
+        
     </script>
 
     {{-- Script Data Kartu Keluarga --}}
@@ -740,9 +749,6 @@
             
             $('#idkktadtampung').val(id);
 
-            setFaskes1();
-            setFaskes2();
-
         }
 
         function updaterowkk(){
@@ -762,12 +768,12 @@
             var idbaris = baris+1;
             // console.log(idbaris);
 
-            var markup = '<tr id="bariske'+idbaris+'">'+
+            var markup = '<tr id="bariskkke'+idbaris+'">'+
             '<td >'+idbaris+'</td>'+
-            '<td style="width:140px ; text-align: center;" nowrap >'+
+            '<td style="width:80px ; text-align: center;" nowrap >'+
 
-            '<a id="btnedit_kk" href="#" onclick="editkk('+idbaris+')" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal_kk2" >Edit</a> |'+ 
-            '<a href="#" onclick="hapusbariskk('+idbaris+')" class="btn btn-sm btn-danger">Hapus</a>'+
+            '<a id="btnedit_kk" href="#" onclick="editkk('+idbaris+')" title="Edit Data" data-toggle="modal" data-target="#modal_kk2" ><i class="fas fa-edit mr-2"></i> </a>'+ 
+            '<a href="#" onclick="hapusbariskk('+idbaris+')" title="Hapus Data"><i class="fas fa-trash mr-2"></i></a>'+
             '</td>'+
 
             '<td ><input style="width:50px ;" class="input_table" id="nik_kk'+idbaris+'" readonly type="text" name="nik_kk[]" value="'+$('#nik_kk').val()+'"></td>'+
@@ -791,7 +797,21 @@
         }
 
         function hapusbariskk(id){
-            $("#bariske"+id).remove();
+                Swal.fire({
+                title: "Hapus Data ?",
+                text: "Hapus Data Kartu Keluarga",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: '#DD6B55',
+                confirmButtonText: 'Ya, Hapus',
+            // closeOnConfirm: false,
+                    //closeOnCancel: false
+
+                }).then(function(isConfirm){
+                  if (isConfirm.value===true){
+                    $("#bariskkke"+id).remove();
+                }
+            });
         }
 
     </script>
@@ -921,11 +941,11 @@
             var idbaris = baris+1;
             // console.log(idbaris);
 
-            var markup = '<tr id="bariske'+idbaris+'">'+
+            var markup = '<tr id="barisaskeske'+idbaris+'">'+
             '<td >'+idbaris+'</td>'+
-            '<td style="width:140px ; text-align: center;" nowrap>'+
-            '<a id="btnedit_askes" href="#" onclick="editaskes('+idbaris+')" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal_askes" >Edit</a> | '+
-            '<a href="#" onclick="hapusbarisaskes('+idbaris+')" class="btn btn-sm btn-danger">Hapus</a>'+
+            '<td style="width:80px ; text-align: center;" nowrap>'+
+            '<a id="btnedit_askes" href="#" onclick="editaskes('+idbaris+')" title="Edit Data" data-toggle="modal" data-target="#modal_askes" ><i class="fas fa-edit mr-2"></a> '+
+            '<a href="#" onclick="hapusbarisaskes('+idbaris+')" title+"Hapus Data"><i class="fas fa-trash mr-2"></a>'+
             '</td>'+
 
             {{-- <td>{{ $data->no_peserta_askes }}</td> --}}
@@ -954,9 +974,25 @@
         }
 
         function hapusbarisaskes(id){
-            $("#bariske"+id).remove();
-        }
+            Swal.fire({
+            title: "Hapus Data ?",
+            text: "Hapus Data Asuransi Kesehatan",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: '#DD6B55',
+            confirmButtonText: 'Ya, Hapus',
+        // closeOnConfirm: false,
+                //closeOnCancel: false
 
+            }).then(function(isConfirm){
+              if (isConfirm.value===true){
+                $("#barisaskeske"+id).remove();
+
+            }
+        });
+            // $("#bariske"+id).remove();
+        }
+        
     </script>
 
     {{-- Script Data ASKER --}}
@@ -1078,11 +1114,11 @@
             var idbaris = baris+1;
             // console.log(idbaris);
 
-            var markup = '<tr id="bariske'+idbaris+'">'+
+            var markup = '<tr id="barisaskerke'+idbaris+'">'+
             '<td >'+idbaris+'</td>'+
-            '<td style="width:140px ; text-align: center;" nowrap>'+
-            '<a id="btnedit_asker" href="#" onclick="editasker('+idbaris+')" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal_asker" >Edit</a> | '+
-            '<a href="#" onclick="hapusbarisasker('+idbaris+')" class="btn btn-sm btn-danger">Hapus</a>'+
+            '<td style="width:80px ; text-align: center;" nowrap>'+
+            '<a id="btnedit_asker" href="#" onclick="editasker('+idbaris+')" title="Edit Data" data-toggle="modal" data-target="#modal_asker" ><i class="fas fa-edit mr-2"></i></a> '+
+            '<a href="#" onclick="hapusbarisasker('+idbaris+')" title="Hapus Data"><i class="fas fa-trash mr-2"></i></a>'+
             '</td>'+
 
             '<td><input style="width:250px ;" class="input_table" id="nm_provider2'+idbaris+'" readonly type="text" name="nm_provider2[]" value="'+$('#selectprovider2 option:selected').text()+'"></td>'+
@@ -1108,8 +1144,24 @@
         }
 
         function hapusbarisasker(id){
-            $("#bariske"+id).remove();
+            Swal.fire({
+            title: "Hapus Data ?",
+            text: "Hapus Data Asuransi Kerja",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: '#DD6B55',
+            confirmButtonText: 'Ya, Hapus',
+        // closeOnConfirm: false,
+                //closeOnCancel: false
+
+            }).then(function(isConfirm){
+              if (isConfirm.value===true){
+                $("#barisaskerke"+id).remove();
+
+            }
+        });
         }
+        
 
     </script>
 
@@ -1188,11 +1240,11 @@
             var idbaris = baris+1;
             // console.log(idbaris);
 
-            var markup = '<tr id="bariske'+idbaris+'">'+
+            var markup = '<tr id="barisriwayatkerjake'+idbaris+'">'+
             '<td >'+idbaris+'</td>'+
-            '<td style="width:140px ; text-align: center;" nowrap>'+
-            '<a id="btnedit_riwayatkerja" href="#" onclick="editriwayatkerja('+idbaris+')" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal_riwayatkerja" >Edit</a> | '+
-            '<a href="#" onclick="hapusbarisriwayatkerja('+idbaris+')" class="btn btn-sm btn-danger">Hapus</a>'+
+            '<td style="width:80px ; text-align: center;" nowrap>'+
+            '<a id="btnedit_riwayatkerja" href="#" onclick="editriwayatkerja('+idbaris+')" title="Edit Data" data-toggle="modal" data-target="#modal_riwayatkerja" ><i class="fas fa-edit mr-2"></i></a> '+
+            '<a href="#" onclick="hapusbarisriwayatkerja('+idbaris+')" title="Hapus Data"><i class="fas fa-trash mr-2"></i></a>'+
             '</td>'+
 
             '<td><input style="width:250px ;" class="input_table" id="nm_corp'+idbaris+'" readonly type="text" name="nm_corp[]" value="'+$('#nm_corp').val()+'"></td>'+
@@ -1218,7 +1270,22 @@
         }
 
         function hapusbarisriwayatkerja(id){
-            $("#bariske"+id).remove();
+            Swal.fire({
+            title: "Hapus Data ?",
+            text: "Hapus Data Riwayat Kerja",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: '#DD6B55',
+            confirmButtonText: 'Ya, Hapus',
+        // closeOnConfirm: false,
+                //closeOnCancel: false
+
+            }).then(function(isConfirm){
+              if (isConfirm.value===true){
+                $("#barisriwayatkerjake"+id).remove();
+
+            }
+        });
         }
 
     </script>
@@ -1283,11 +1350,11 @@
             var idbaris = baris+1;
             // console.log(idbaris);
 
-            var markup = '<tr id="bariske'+idbaris+'">'+
+            var markup = '<tr id="barispendidikanke'+idbaris+'">'+
             '<td >'+idbaris+'</td>'+
-            '<td style="width:140px ; text-align: center;" nowrap>'+
-            '<a id="btnedit_pendidikan" href="#" onclick="editpendidikan('+idbaris+')" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal_pendidikan" >Edit</a> | '+
-            '<a href="#" onclick="hapusbarispendidikan('+idbaris+')" class="btn btn-sm btn-danger">Hapus</a>'+
+            '<td style="width:80px ; text-align: center;" nowrap>'+
+            '<a id="btnedit_pendidikan" href="#" onclick="editpendidikan('+idbaris+')" title="Edit Data" data-toggle="modal" data-target="#modal_pendidikan" ><i class="fas fa-edit mr-2"></i></a> '+
+            '<a href="#" onclick="hapusbarispendidikan('+idbaris+')" title="Hapus Data"><i class="fas fa-trash mr-2"></i></a>'+
             '</td>'+
 
             '<td><input style="width:100px ;" class="input_table" id="tingkatsekolah'+idbaris+'" readonly type="text" name="tingkatsekolah[]" value="'+$('#tingkatsekolah').val()+'"></td>'+
@@ -1308,7 +1375,22 @@
         }
 
         function hapusbarispendidikan(id){
-            $("#bariske"+id).remove();
+            Swal.fire({
+            title: "Hapus Data ?",
+            text: "Hapus Data Pendidikan",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: '#DD6B55',
+            confirmButtonText: 'Ya, Hapus',
+        // closeOnConfirm: false,
+                //closeOnCancel: false
+
+            }).then(function(isConfirm){
+              if (isConfirm.value===true){
+                $("#barispendidikanke"+id).remove();
+            }
+        });
+            // $("#bariske"+id).remove();
         }
 
     </script>
@@ -1361,11 +1443,11 @@
             var idbaris = baris+1;
             // console.log(idbaris);
 
-            var markup = '<tr id="bariske'+idbaris+'">'+
+            var markup = '<tr id="barissimke'+idbaris+'">'+
             '<td >'+idbaris+'</td>'+
-            '<td style="width:140px ; text-align: center;" nowrap>'+
-            '<a id="btnedit_sim" href="#" onclick="editsim('+idbaris+')" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal_sim" >Edit</a> | '+
-            '<a href="#" onclick="hapusbarissim('+idbaris+')" class="btn btn-sm btn-danger">Hapus</a>'+
+            '<td style="width:80px ; text-align: center;" nowrap>'+
+            '<a id="btnedit_sim" href="#" onclick="editsim('+idbaris+')" title="Edit Data" data-toggle="modal" data-target="#modal_sim" ><i class="fas fa-edit mr-2"></i></a> '+
+            '<a href="#" onclick="hapusbarissim('+idbaris+')" title="Hapus Data"><i class="fas fa-trash mr-2"></i></a>'+
             '</td>'+
 
             '<td><input style="width:100px ;" class="input_table" id="no_sim'+idbaris+'" readonly type="text" name="no_sim[]" value="'+$('#no_sim').val()+'"></td>'+
@@ -1382,7 +1464,22 @@
         }
 
         function hapusbarissim(id){
-            $("#bariske"+id).remove();
+            Swal.fire({
+                title: "Hapus Data ?",
+                text: "Hapus Data SIM",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: '#DD6B55',
+                confirmButtonText: 'Ya, Hapus',
+        // closeOnConfirm: false,
+                //closeOnCancel: false
+
+            }).then(function(isConfirm){
+              if (isConfirm.value===true){
+                $("#barissimke"+id).remove();
+            }
+        });
+            // $("#bariske"+id).remove();
         }
 
     </script>
@@ -1438,11 +1535,11 @@
             var idbaris = baris+1;
             // console.log(idbaris);
 
-            var markup = '<tr id="bariske'+idbaris+'">'+
+            var markup = '<tr id="bariskeluargake'+idbaris+'">'+
             '<td >'+idbaris+'</td>'+
-            '<td style="width:140px ; text-align: center;" nowrap>'+
-            '<a id="btnedit_keluarga" href="#" onclick="editkeluarga('+idbaris+')" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal_keluarga" >Edit</a> | '+
-            '<a href="#" onclick="hapusbariskeluarga('+idbaris+')" class="btn btn-sm btn-danger">Hapus</a>'+
+            '<td style="width:80px ; text-align: center;" nowrap>'+
+            '<a id="btnedit_keluarga" href="#" onclick="editkeluarga('+idbaris+')" title="Edit Data" data-toggle="modal" data-target="#modal_keluarga" ><i class="fas fa-edit mr-2"></i></a> '+
+            '<a href="#" onclick="hapusbariskeluarga('+idbaris+')" title="Hapus Data"><i class="fas fa-trash mr-2"></i></a>'+
             '</td>'+
 
             '<td><input style="width:200px ;" class="input_table" id="nm_kel'+idbaris+'" readonly type="text" name="nm_kel[]" value="'+$('#nm_kel').val()+'"></td>'+
@@ -1460,7 +1557,22 @@
         }
 
         function hapusbariskeluarga(id){
-            $("#bariske"+id).remove();
+            Swal.fire({
+                title: "Hapus Data ?",
+                text: "Hapus Data Akses",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: '#DD6B55',
+                confirmButtonText: 'Ya, Hapus',
+        // closeOnConfirm: false,
+                //closeOnCancel: false
+
+            }).then(function(isConfirm){
+              if (isConfirm.value===true){
+                $("#bariskeluargake"+id).remove();
+            }
+        });
+            // $("#bariske"+id).remove();
         }
 
     </script>
@@ -1519,11 +1631,11 @@
             var idbaris = baris+1;
             // console.log(idbaris);
 
-            var markup = '<tr id="bariske'+idbaris+'">'+
+            var markup = '<tr id="barisseragamke'+idbaris+'">'+
             '<td >'+idbaris+'</td>'+
-            '<td style="width:140px ; text-align: center;" nowrap>'+
-            '<a id="btnedit_seragam" href="#" onclick="editseragam('+idbaris+')" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal_seragam" >Edit</a> | '+
-            '<a href="#" onclick="hapusbarisseragam('+idbaris+')" class="btn btn-sm btn-danger">Hapus</a>'+
+            '<td style="width:80px ; text-align: center;" nowrap>'+
+            '<a id="btnedit_seragam" href="#" onclick="editseragam('+idbaris+')" title="Edit Data" data-toggle="modal" data-target="#modal_seragam" ><i class="fas fa-edit mr-2"></i></a> '+
+            '<a href="#" onclick="hapusbarisseragam('+idbaris+')" title="Hapus Data"><i class="fas fa-trash mr-2"></i></a>'+
             '</td>'+
 
             '<td><input style="width:200px ;" class="input_table" id="tinggi_badan'+idbaris+'" readonly type="text" name="tinggi_badan[]" value="'+$('#tinggi_badan').val()+'"></td>'+
@@ -1541,7 +1653,22 @@
         }
 
         function hapusbarisseragam(id){
-            $("#bariske"+id).remove();
+            Swal.fire({
+            title: "Hapus Data ?",
+            text: "Hapus Data Seragam",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: '#DD6B55',
+            confirmButtonText: 'Ya, Hapus',
+        // closeOnConfirm: false,
+                //closeOnCancel: false
+
+            }).then(function(isConfirm){
+              if (isConfirm.value===true){
+                $("#barisseragamke"+id).remove();
+            }
+        });
+            // $("#bariske"+id).remove();
         }
 
     </script>
@@ -1551,8 +1678,10 @@
 
         $(document).ready(function() {
 
-            $('#tabelrekening td:nth-child(9)').hide();
-            $('#tabelrekening th:nth-child(9)').hide();
+            $('#tabelrekening td:nth-child(7)').hide();
+            $('#tabelrekening th:nth-child(7)').hide();
+            $('#tabelrekening td:nth-child(6)').hide();
+            $('#tabelrekening th:nth-child(6)').hide();
             
             $('#selectbank').select2();
 
@@ -1626,11 +1755,11 @@
             var idbaris = baris+1;
             // console.log(idbaris);
 
-            var markup = '<tr id="bariske'+idbaris+'">'+
+            var markup = '<tr id="barisrekeningke'+idbaris+'">'+
             '<td >'+idbaris+'</td>'+
-            '<td style="width:140px ; text-align: center;" nowrap>'+
-            '<a id="btnedit_rekening" href="#" onclick="editrekening('+idbaris+')" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal_rekening" >Edit</a> | '+
-            '<a href="#" onclick="hapusbarisrekening('+idbaris+')" class="btn btn-sm btn-danger">Hapus</a>'+
+            '<td style="width:80px ; text-align: center;" nowrap>'+
+            '<a id="btnedit_rekening" href="#" onclick="editrekening('+idbaris+')" title="Edit Data" data-toggle="modal" data-target="#modal_rekening" ><i class="fas fa-edit mr-2"></i></a> '+
+            '<a href="#" onclick="hapusbarisrekening('+idbaris+')" title="Hapus Data"><i class="fas fa-trash mr-2"></i></a>'+
             '</td>'+
 
             '<td><input style="width:250px ;" class="input_table" id="nm_bank'+idbaris+'" readonly type="text" name="nm_bank[]" value="'+$('#selectbank option:selected').text()+'"></td>'+
@@ -1644,11 +1773,33 @@
             $('#tabelrekening').append(markup);
 
 
+            $('#tabelrekening td:nth-child(7)').hide();
+            $('#tabelrekening th:nth-child(7)').hide();
+            $('#tabelrekening td:nth-child(6)').hide();
+            $('#tabelrekening th:nth-child(6)').hide();
+
+
         }
 
         function hapusbarisrekening(id){
-            $("#bariske"+id).remove();
+            Swal.fire({
+            title: "Hapus Data ?",
+            text: "Hapus Data Rekening",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: '#DD6B55',
+            confirmButtonText: 'Ya, Hapus',
+        // closeOnConfirm: false,
+                //closeOnCancel: false
+
+            }).then(function(isConfirm){
+              if (isConfirm.value===true){
+                $("#barisrekeningke"+id).remove();
+            }
+        });
+            // $("#bariske"+id).remove();
         }
+        
 
     </script>
     {{-- Widthm Kolom otomatis --}}

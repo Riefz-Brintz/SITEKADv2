@@ -6,27 +6,30 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\Http\Controllers\Controller;
+use Session;
+use DataTables;
+use Response;
 use DB;
-use App\Cabang;
-use App\Jeniskelamin;
-use App\Statusperkawinan;
-use App\TadRekening;
-use App\TadKeluarga;
-use App\TadSim;
-use App\TadPendidikan;
-use App\TadRiwayatKerja;
-use App\Tadkk;
-use App\TadAsuransiKesehatan;
-use App\TadAsuransiKerja;
-use App\TadAlamat;
-use App\TadSeragam;
-use App\Kota;
-use App\Bank;
-use App\Provinsi;
-use App\Faskes;
-use App\ProgramAsuransi;
-use App\ProviderAsuransi;
-use App\Tad;
+use App\Model\Cabang;
+use App\Model\Jeniskelamin;
+use App\Model\Statusperkawinan;
+use App\Model\TadRekening;
+use App\Model\TadKeluarga;
+use App\Model\TadSim;
+use App\Model\TadPendidikan;
+use App\Model\TadRiwayatKerja;
+use App\Model\Tadkk;
+use App\Model\TadAsuransiKesehatan;
+use App\Model\TadAsuransiKerja;
+use App\Model\TadAlamat;
+use App\Model\TadSeragam;
+use App\Model\Kota;
+use App\Model\Bank;
+use App\Model\Provinsi;
+use App\Model\Faskes;
+use App\Model\ProgramAsuransi;
+use App\Model\ProviderAsuransi;
+use App\Model\Tad;
 
 class TadController extends Controller
 {
@@ -44,167 +47,26 @@ class TadController extends Controller
 
     }
 
-    public function cekakses()
+     public function cekakses()
     {
-        $akses=DB::select('SELECT
-            `users`.`id`
-            , `tblmenu`.`Nama_Menu`
-            FROM
-            `dtu_laravel`.`tblroledetail`
-            INNER JOIN `dtu_laravel`.`tblrole` 
-            ON (`tblroledetail`.`IDRole` = `tblrole`.`IDRole`)
-            INNER JOIN `dtu_laravel`.`users` 
-            ON (`users`.`IDRole` = `tblrole`.`IDRole`)
-            INNER JOIN `dtu_laravel`.`tblmenu` 
-            ON (`tblmenu`.`IDMenu` = `tblroledetail`.`IDMenu`)
-            WHERE id = '.Auth::id().' and Nama_Menu="Tad"' );
-        $aa = 'udah bisa';
+        $akses=DB::select('SELECT * from vakses
+            WHERE id = '.Auth::id().' and Nama_Menu="Tad" limit 1');
+
         if (!$akses){
             return abort(404);
         }else{
+            Session::put('tambah', $akses[0]->tambah);
             return $akses;
         }
 
     }
-
-function TadList(Request $request){
-
-
-       $columns = array( 
-        0=>"id",
-        1=>"no_ektp",
-        2=>"nik_tad",
-        3=>"idcabang",
-        4=>"nm_lengkaptad",
-        5=>"tmp_lahir",
-        6=>"tgl_lahir",
-        7=>"umur",
-        8=>"telp",
-        9=>"jenis_kel",
-        10=>"agama",
-        11=>"statusperkawinan",
-        12=>"warga_negara",
-        13=>"gol_darah",
-        14=>"nm_ibukandung",
-        15=>"catatan",
-        16=>"emailadd",
-        17=>"npwptad",
-        18=>"gambar_ektp",
-        19=>"IDTad",
-
-        );  
-
-       $totalData = Tad::count();            
-       $totalFiltered = $totalData;
-       $limit = $request->input('length');
-       $start = $request->input('start');
-       $order = $columns[$request->input('order.0.column')];
-       $dir = $request->input('order.0.dir');
-
-       if(empty($request->input('search.value')))
-       {            
-        $datatad = Tad::offset($start)
-        ->limit($limit)
-        ->orderBy($order,$dir)
-        ->get();
-       }else {
-        $search = $request->input('search.value'); 
-
-        $datatad =  Tad::Where("no_ektp",'LIKE',"%{$search}%")
-        ->orWhere("nik_tad",'LIKE',"%{$search}%")
-        ->orWhere("idcabang",'LIKE',"%{$search}%")
-        ->orWhere("nm_lengkaptad",'LIKE',"%{$search}%")
-        ->orWhere("tmp_lahir",'LIKE',"%{$search}%")
-        ->orWhere("tgl_lahir",'LIKE',"%{$search}%")
-        ->orWhere("umur",'LIKE',"%{$search}%")
-        ->orWhere("telp",'LIKE',"%{$search}%")
-        ->orWhere("jenis_kel",'LIKE',"%{$search}%")
-        ->orWhere("agama",'LIKE',"%{$search}%")
-        ->orWhere("statusperkawinan",'LIKE',"%{$search}%")
-        ->orWhere("warga_negara",'LIKE',"%{$search}%")
-        ->orWhere("gol_darah",'LIKE',"%{$search}%")
-        ->orWhere("nm_ibukandung",'LIKE',"%{$search}%")
-        ->orWhere("catatan",'LIKE',"%{$search}%")
-        ->orWhere("emailadd",'LIKE',"%{$search}%")
-        ->orWhere("npwptad",'LIKE',"%{$search}%")
-        ->orWhere("IDTad",'LIKE',"%{$search}%")
-        ->offset($start)
-        ->limit($limit)
-        ->orderBy($order,$dir)
-        ->get();
-
-        $totalFiltered = Tad::Where("no_ektp",'LIKE',"%{$search}%")
-        ->orWhere("nik_tad",'LIKE',"%{$search}%")
-        ->orWhere("idcabang",'LIKE',"%{$search}%")
-        ->orWhere("nm_lengkaptad",'LIKE',"%{$search}%")
-        ->orWhere("tmp_lahir",'LIKE',"%{$search}%")
-        ->orWhere("tgl_lahir",'LIKE',"%{$search}%")
-        ->orWhere("umur",'LIKE',"%{$search}%")
-        ->orWhere("telp",'LIKE',"%{$search}%")
-        ->orWhere("jenis_kel",'LIKE',"%{$search}%")
-        ->orWhere("agama",'LIKE',"%{$search}%")
-        ->orWhere("statusperkawinan",'LIKE',"%{$search}%")
-        ->orWhere("warga_negara",'LIKE',"%{$search}%")
-        ->orWhere("gol_darah",'LIKE',"%{$search}%")
-        ->orWhere("nm_ibukandung",'LIKE',"%{$search}%")
-        ->orWhere("catatan",'LIKE',"%{$search}%")
-        ->orWhere("emailadd",'LIKE',"%{$search}%")
-        ->orWhere("npwptad",'LIKE',"%{$search}%")
-        ->orWhere("IDTad",'LIKE',"%{$search}%")
-        ->count();
-        }
-        $data = array();
-        if(!empty($datatad))
-        {
-            foreach ($datatad as $key=>$datarowtad)
-            {
-                $nestedData['id'] = $key+1;
-                $nestedData['action'] =  '<div class="dropdown-menu" role="menu">
-                <a class="dropdown-item" href="{{ route("Tad.ubah",$item->IDTad) }}">Ubah</a>
-                <a class="dropdown-item" onclick="hapustad({{ $datarowtad->IDTad }})">Hapus</a>
-                </div>';
-                $nestedData["no_ektp"] = $datarowtad->no_ektp;
-                $nestedData["nik_tad"] = $datarowtad->nik_tad;
-                $nestedData["idcabang"] = $datarowtad->idcabang;
-                $nestedData["nm_lengkaptad"] = $datarowtad->nm_lengkaptad;
-                $nestedData["tmp_lahir"] = $datarowtad->tmp_lahir;
-                $nestedData["tgl_lahir"] = $datarowtad->tgl_lahir;
-                $nestedData["umur"] = $datarowtad->umur;
-                $nestedData["telp"] = $datarowtad->telp;
-                $nestedData["jenis_kel"] = $datarowtad->jenis_kel;
-                $nestedData["agama"] = $datarowtad->agama;
-                $nestedData["statusperkawinan"] = $datarowtad->statusperkawinan;
-                $nestedData["warga_negara"] = $datarowtad->warga_negara;
-                $nestedData["gol_darah"] = $datarowtad->gol_darah;
-                $nestedData["nm_ibukandung"] = $datarowtad->nm_ibukandung;
-                $nestedData["catatan"] = $datarowtad->catatan;
-                $nestedData["emailadd"] = $datarowtad->emailadd;
-                $nestedData["npwptad"] = $datarowtad->npwptad;
-                $nestedData["IDTad"] = $datarowtad->IDTad;
-
-                $data[] = $nestedData;
-            }
-
-        }
-    $json_data = array(
-        "draw"            => intval($request->input('draw')),  
-        "recordsTotal"    => intval($totalData),  
-        "recordsFiltered" => intval($totalFiltered), 
-        "data"            => $data   
-    );            
-
-    echo json_encode($json_data); 
-}          
-
-
+      
 
 public function index()
 {   
-    // $tes = $this->cekakses();;
-    
-    // dd($tes);
-    $Tad=DB::select('select * from vtadlist where is_deleted= 0  order by idtad desc limit 50');
-    return view('mastertad.tad',compact('Tad'));
+    // $aksesdata = $this->cekakses();
+
+    return view('mastertad.tad');
       /**
      * Show the form for creating a new resource.
      *
@@ -213,6 +75,50 @@ public function index()
 
   }
 
+ public function tampil_data_tad(){
+        return Datatables::of(DB::table('vtadlist')->where ('is_deleted',0))
+            // DB::select('SELECT * from vtadlist
+            // WHERE is_deleted=0 limit 1'))
+        ->addIndexColumn()
+
+        ->addColumn('action', function($row){
+          
+        $akses = $this->cekakses();
+
+          if ($akses[0]->ubah=='Tidak' && $akses[0]->hapus=='Tidak'  ){
+          $btn = '<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                  <div class="btn-group" role="group">
+                    <button id="btnGroupDrop1" type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" disabled>
+                      Tindakan
+                    </button>                    
+                  
+                  </div>
+                </div>';
+          }else {
+          $btn = '<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                  <div class="btn-group" role="group">
+                    <button id="btnGroupDrop1" type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                      Tindakan
+                    </button>                    
+                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">';
+                    if ($akses[0]->ubah=='Ya'){
+                    $btn = $btn. '<a class="dropdown-item" href="'.url('/Tad/'.$row->IDTad.'/edit').'"><i class="fas fa-edit mr-2"></i>Ubah</a>';
+                    }  
+                    if ($akses[0]->hapus=='Ya'){
+                    $btn = $btn.  '<a class="dropdown-item" onclick="hapustad('.$row->IDTad.')"><i class="fas fa-trash mr-2"></i>Hapus</a>';
+                    }  
+                  $btn = $btn.'</div>
+                  </div>
+                </div>';
+
+          }
+
+
+          return $btn;
+      })
+      //   ->rawColumns(['action'])
+        ->make(true);
+    }
 
 
   public function create()
@@ -277,7 +183,7 @@ public function index()
     /**
      * Display the specified resource.
      *
-     * @param  \App\Tad  $Tad
+     * @param  \App\Model\Tad  $Tad
      * @return \Illuminate\Http\Response
      */
     public function show(Tad $Tad)
@@ -288,7 +194,7 @@ public function index()
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Tad  $Tad
+     * @param  \App\Model\Tad  $Tad
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -324,7 +230,7 @@ public function index()
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Tad  $Tad
+     * @param  \App\Model\Tad  $Tad
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -657,7 +563,7 @@ public function index()
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Tad  $Tad
+     * @param  \App\Model\Tad  $Tad
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

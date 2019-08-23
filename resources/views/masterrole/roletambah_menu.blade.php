@@ -1,7 +1,7 @@
  {{-- Tabel roledetail--}}
  <div class="card-body">
   <span style="float: right;">
-    <a href="#" class="btn btn-info btn-sm mb-2" id="btn-modal-tambah" onclick="refreshroledetail()" data-toggle="modal" data-target="#modal_roledetail">Tambah Data Role Detail</a>    
+    <a href="#" class="btn btn-primary btn-sm mb-2" id="btn-modal-tambah" onclick="refreshroledetail()" data-toggle="modal" data-target="#modal_roledetail"><i class="fas fa-plus mr-2"></i>Tambah Data Role Detail</a>    
   </span>
   <div class="table-responsive table-sm">
     <table id="tabelroledetail" class="table table-bordered">
@@ -124,8 +124,8 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button id="tambahroledetailbtn" type="button" onclick="tambahrowroledetail()" class="btn btn-primary" data-dismiss="modal">Tambah data</button>
-        <button id="updateroledetailbtn" type="button" onclick="updaterowroledetail()" class="btn btn-primary" data-dismiss="modal">Update data</button>
+        <button id="tambahroledetailbtn" type="button" onclick="tambahrowroledetail()" class="btn btn-primary" data-dismiss="modal"><i class="fas fa-save mr-2"></i>Tambah data</button>
+        <button id="updateroledetailbtn" type="button" onclick="updaterowroledetail()" class="btn btn-primary" data-dismiss="modal"><i class="fas fa-save mr-2"></i>Update data</button>
       </div>
     </div>
   </div>

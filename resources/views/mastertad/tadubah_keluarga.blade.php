@@ -3,7 +3,7 @@
 
  <div class="card-body">
   <span style="float: right;">
-    <a href="#" class="btn btn-info btn-sm mb-2" id="btn-modal-tambah" onclick="refreshkeluarga()" data-toggle="modal" data-target="#modal_keluarga">Tambah Data keluarga</a>    
+    <a href="#" class="btn btn-primary btn-sm mb-2" id="btn-modal-tambah" onclick="refreshkeluarga()" data-toggle="modal" data-target="#modal_keluarga"><i class="fas fa-plus mr-2"></i>Tambah Data keluarga</a>    
   </span>
 <div class="table-responsive table-sm">
   <table id="tabelkeluarga" class="table table-bordered">
@@ -23,11 +23,11 @@
       <?php $no = 0;?>
       @foreach ($TadKeluarga as $data)
       <?php $no++ ;?>
-      <tr id="bariske{{ $data->idkeluarga }}">
+      <tr id="bariskeluargake{{ $data->idkeluarga }}">
         <td >{{ $no }}</td>
-        <td style="width:140px ; text-align: center;" nowrap>
-          <a id="btnedit_keluarga" href="#" onclick="editkeluarga({{ $data->idkeluarga }})" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal_keluarga" >Edit</a> | 
-          <a href="#" onclick="hapusbariskeluarga({{ $data->idkeluarga }})" class="btn btn-sm btn-danger">Hapus</a>
+        <td style="width:80px ; text-align: center;" nowrap>
+          <a id="btnedit_keluarga" href="#" onclick="editkeluarga({{ $data->idkeluarga }})" title="Edit Data" data-toggle="modal" data-target="#modal_keluarga" ><i class="fas fa-edit mr-2"></i></a> 
+          <a href="#" onclick="hapusbariskeluarga({{ $data->idkeluarga }})" title="Hapus Data"><i class="fas fa-trash mr-2"></i></a>
         </td>
 
         <td><input style="width:200px ;" class="input_table" id="nm_kel{{ $data->idkeluarga }}" readonly type="text" name="nm_kel[]" value="{{ $data->nm_kel }}"></td>

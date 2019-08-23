@@ -17,8 +17,6 @@
 <div class="content-wrapper">
   <div class="content-header">
     <div class="container-fluid">
-
-
       @if (session('status'))
       <div class="alert alert-success" User="alert">
         {{ session('status') }}
@@ -36,58 +34,38 @@
         <div class="card">
           <div class="card-header">
             <h3 class="card-title"><strong>Daftar User</strong>
+            @if (session('tambah')=="Ya")
               <span style="float: right;">
-                <a href="{{ route('User.tambah') }}" class="btn btn-primary a-btn-slide-text">
+                <a href="{{ route('User.tambah') }}" class="btn btn-primary btn-sm a-btn-slide-text">
                   <span class="fas fa-plus mr-2" aria-hidden="true"></span>
                   <span><strong>Tambah Data User</strong></span>            
                 </a>
               </h3>
             </span>
+            @endif
+
           </div>
           <!-- /.card-header -->
           <div class="card-body" >
-            <table id="example" class="table table-bordered table-striped">
+            <table id="example" class="table ">
              <thead>
               <tr>
                <th>No</th>
                <th>Aksi</th>
-               <th>Nama User</th>
-               <th>Email</th>
-               <th>Cabang</th>
-               <th>Role</th>
+               <th width="300px">Nama User</th>
+               <th width="300px">Email</th>
+               <th width="300px">Cabang</th>
+               <th width="300px">Role</th>
 
 
              </tr>
            </thead>
-           <tbody>
-            <?php $no = 0;?>
-            @foreach ($User as $item)
-            <?php $no++ ;?>
+           <tfoot>
             <tr>
-              <td autowidth>{{ $no }}</td>
-              <td >
-                <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-
-                  <div class="btn-group" role="group">
-                    <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Tindakan
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                      <a class="dropdown-item" href="{{ route('User.ubah',$item->id) }}"><i class="fas fa-edit mr-2"></i>Ubah</a>
-                      <a class="dropdown-item" onclick="hapusUser({{ $item->id }})"><i class="fas fa-trash mr-2"></i>Hapus</a>
-                    </div>
-                  </div>
-                </div>
-
-              </td>
-              <td width="200px">{{ $item->name }}</td>                     
-              <td width="300px">{{ $item->email }}</td>                     
-              <td width="300px">{{ $item->getcabang->cabang }}</td>                     
-              <td width="200px">{{ $item->getrole->nama_role }}</td>
-
+              
             </tr>
-            @endforeach
-          </tbody>
+             
+           </tfoot>
         </table>
       </div>
       <!-- /.card-body -->
@@ -113,18 +91,59 @@
 <!-- page script -->
 <script>
 
-  $(document).ready(function() {
-    $('#example').DataTable();
-  } );
+
 
 
   function hapusUser(aja) {
-    var txt;
-    var r = confirm("Apakah anda yakin ?");
-    if (r == true) {
-      window.location = "/User/hapus/"+aja;
-    }
-  }
+        Swal.fire({
+        title: "Yakin Ingin Menghapus ?",
+        text: "Data Akan Hilang Jika Dihapus",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: '#DD6B55',
+        confirmButtonText: 'Ya, Hapus',
+        // closeOnConfirm: false,
+                //closeOnCancel: false
 
-</script>z
+      }).then(function(isConfirm){
+              if (isConfirm.value===true){
+                window.location = "/User/hapus/"+aja;
+              }
+            });
+    }
+
+ 
+
+</script>
+
+<script>
+    $(function() {
+      $('#example').DataTable({
+        processing: true,
+        serverSide: true,
+        responsive: true,
+        language: {
+          searchPlaceholder: 'Search...',
+          sSearch: '',
+          lengthMenu: '_MENU_ items/page',
+        },
+        ajax: '{{ route('tampil_data_user') }}',
+        columns: [
+         {
+          "data": "id",
+          render: function (data, type, row, meta) {
+              return meta.row + meta.settings._iDisplayStart + 1;
+          }},
+        { data: 'action', name: 'action', orderable: false, searchable: false},
+        { data: 'name', name: 'name' },
+        { data: 'email', name: 'email' },
+        { data: 'getcabang.cabang', name: 'cabang' },
+        { data: 'getrole.nama_role', name: 'nama_role' }
+        ],
+
+      });
+      
+    });
+
+  </script>
 @endsection

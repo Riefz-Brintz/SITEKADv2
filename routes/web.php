@@ -44,6 +44,8 @@ Route::get('/getFaskes/{id}', 'TadController@getFaskes')->name('Tad.getfaskes');
 Route::get('/getProviderAsuransi/{id}', 'TadController@getProviderAsuransi')->name('Tad.getProviderAsuransi');
 Route::get('/getProgramAsuransi/{id}', 'TadController@getProgramAsuransi')->name('Tad.getProgramAsuransi');
 Route::get('/getBank/{id}', 'TadController@getBank')->name('Tad.getBank');
+Route::get('/Tad/tampil_data_tad','TadController@tampil_data_tad')->name('tampil_data_tad');
+
 
 Route::get('/User', 'UserController@index')->name('User');
 Route::get('/User/add', 'UserController@create')->name('User.tambah');
@@ -52,8 +54,9 @@ Route::get('/User/hapus/{id}', 'UserController@destroy')->name('User.hapus');
 Route::post('/User/{id}/edit', 'UserController@update')->name('User.ubahdata');
 Route::post('/User/add', 'UserController@store')->name('User.simpandata');
 Route::post('/User/export', 'UserController@export')->name('User.export');
-Route::get('/getRole/{id}', 'UserController@getRole')->name('User.getrole');
+Route::get('/getJenisbq/{id}', 'UserController@getJenisbq')->name('User.getJenisbq');
 Route::get('/getCabang/{id}', 'UserController@getCabang')->name('User.getcabang');
+Route::get('/User/tampil_data_user','UserController@tampil_data_user')->name('tampil_data_user');
 
 Route::get('/Role', 'RoleController@index')->name('Role');
 Route::get('/Role/add', 'RoleController@create')->name('Role.tambah');
@@ -64,6 +67,38 @@ Route::post('/Role/add', 'RoleController@store')->name('Role.simpandata');
 Route::post('/Role/export', 'RoleController@export')->name('Role.export');
 Route::get('/getMenu/{id}', 'RoleController@getMenu')->name('Role.getmenu');
 Route::get('/Role/tampil_data_role','RoleController@tampil_data_role')->name('tampil_data_role');
+
+
+Route::get('/Jenisbq', 'JenisbqController@index')->name('Jenisbq');
+Route::get('/Jenisbq/add', 'JenisbqController@create')->name('Jenisbq.tambah');
+Route::get('/Jenisbq/{id}/edit', 'JenisbqController@edit')->name('Jenisbq.ubah');
+Route::get('/Jenisbq/hapus/{id}', 'JenisbqController@destroy')->name('Jenisbq.hapus');
+Route::post('/Jenisbq/edit/{id}', 'JenisbqController@update')->name('Jenisbq.ubahdata');
+Route::post('/Jenisbq/add', 'JenisbqController@store')->name('Jenisbq.simpandata');
+Route::post('/Jenisbq/export', 'JenisbqController@export')->name('Jenisbq.export');
+Route::get('/Jenisbq/tampil_data_Jenisbq','JenisbqController@tampil_data_Jenisbq')->name('tampil_data_Jenisbq');
+// Route::get('/getMenu/{id}', 'RoleController@getMenu')->name('Role.getmenu');
+
+
+// Route::get('/Kategoribq', 'KategoribqController@index')->name('Kategoribq');
+// Route::get('/Kategoribq/add', 'KategoribqController@create')->name('Kategoribq.tambah');
+// Route::get('/Kategoribq/{id}/edit', 'KategoribqController@edit')->name('Kategoribq.ubah');
+// Route::get('/Kategoribq/hapus/{id}', 'KategoribqController@destroy')->name('Kategoribq.hapus');
+// Route::post('/Kategoribq/{id}/edit', 'KategoribqController@update')->name('Kategoribq.ubahdata');
+// Route::post('/Kategoribq/add', 'KategoribqController@store')->name('Kategoribq.simpandata');
+// Route::post('/Kategoribq/export', 'KategoribqController@export')->name('Kategoribq.export');
+// Route::get('/getMenu/{id}', 'KategoribqController@getMenu')->name('Kategoribq.getmenu');
+// Route::get('/Kategoribq/tampil_data_Kategoribq','KategoribqController@tampil_data_Kategoribq')->name('tampil_data_Kategoribq');
+
+// Route::get('/Standardbq', 'StandardbqController@index')->name('Standardbq');
+// Route::get('/Standardbq/add', 'StandardbqController@create')->name('Standardbq.tambah');
+// Route::get('/Standardbq/{id}/edit', 'StandardbqController@edit')->name('Standardbq.ubah');
+// Route::get('/Standardbq/hapus/{id}', 'StandardbqController@destroy')->name('Standardbq.hapus');
+// Route::post('/Standardbq/{id}/edit', 'StandardbqController@update')->name('Standardbq.ubahdata');
+// Route::post('/Standardbq/add', 'StandardbqController@store')->name('Standardbq.simpandata');
+// Route::post('/Standardbq/export', 'StandardbqController@export')->name('Standardbq.export');
+// Route::get('/getMenu/{id}', 'StandardbqController@getMenu')->name('Standardbq.getmenu');
+// Route::get('/Standardbq/tampil_data_Standardbq','StandardbqController@tampil_data_Standardbq')->name('tampil_data_Standardbq');
 
 
 

@@ -36,9 +36,10 @@
               <div class="card">
                 <div class="card-header">
                   <h3 class="card-title">Data Role
-                   @if (session('tambah')=="Ya")
+                @if (session('tambah')=="Ya")
+                   
                    <span style="float: right;">
-                    <a href="{{ route('Role.tambah') }}" class="btn btn-primary a-btn-slide-text">
+                    <a href="{{ route('Role.tambah') }}" class="btn btn-primary btn-sm a-btn-slide-text">
                       <i class="fas fa-plus mr-2"></i>
                       <span><strong>Tambah Data Role</strong></span>            
                     </a>
@@ -142,8 +143,6 @@
         ],
 
       });
-
-
       
     });
 

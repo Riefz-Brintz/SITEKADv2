@@ -2,7 +2,7 @@
  
     <div class="card-body">
       <span style="float: right;">
-        <a href="#" class="btn btn-info btn-sm mb-2" id="btn-modal-tambah" onclick="refreshrekening()" data-toggle="modal" data-target="#modal_rekening">Tambah Data rekening</a>    
+        <a href="#" class="btn btn-primary btn-sm mb-2" id="btn-modal-tambah" onclick="refreshrekening()" data-toggle="modal" data-target="#modal_rekening"><i class="fas fa-plus mr-2"></i>Tambah Data rekening</a>    
       </span>
       <div class="table-responsive table-sm">
         <table id="tabelrekening" class="table table-bordered">
@@ -21,11 +21,11 @@
             <?php $no = 0;?>
             @foreach ($TadRekening as $data)
             <?php $no++ ;?>
-            <tr id="bariske{{ $data->idrekening }}">
+            <tr id="barisrekeningke{{ $data->idrekening }}">
               <td >{{ $no }}</td>
-              <td style="width:140px ; text-align: center;" nowrap>
-                <a id="btnedit_rekening" href="#" onclick="editrekening({{ $data->idrekening }})" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal_rekening" >Edit</a> | 
-                <a href="#" onclick="hapusbarisrekening({{ $data->idrekening }})" class="btn btn-sm btn-danger">Hapus</a>
+              <td style="width:80px ; text-align: center;" nowrap>
+                <a id="btnedit_rekening" href="#" onclick="editrekening({{ $data->idrekening }})" title="Edit Data" data-toggle="modal" data-target="#modal_rekening" ><i class="fas fa-edit mr-2"></i></a> 
+                <a href="#" onclick="hapusbarisrekening({{ $data->idrekening }})" title="Hapus Data"><i class="fas fa-trash mr-2"></i></a>
               </td>
 
               {{-- <td>{{ $data->no_rekening }}</td> --}}

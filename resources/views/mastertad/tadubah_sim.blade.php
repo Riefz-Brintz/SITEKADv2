@@ -1,7 +1,7 @@
  {{-- Tabel sim tad --}}
  <div class="card-body">
   <span style="float: right;">
-    <a href="#" class="btn btn-info btn-sm mb-2" id="btn-modal-tambah" onclick="refreshsim()" data-toggle="modal" data-target="#modal_sim">Tambah Data Sim</a>    
+    <a href="#" class="btn btn-primary btn-sm mb-2" id="btn-modal-tambah" onclick="refreshsim()" data-toggle="modal" data-target="#modal_sim"><i class="fas fa-plus mr-2"></i>Tambah Data Sim</a>    
   </span>
   <div class="table-responsive table-sm">
     <table id="tabelsim" class="table table-bordered">
@@ -20,11 +20,11 @@
         <?php $no = 0;?>
         @foreach ($TadSim as $data)
         <?php $no++ ;?>
-        <tr id="bariske{{ $data->idsim }}">
+        <tr id="barissimke{{ $data->idsim }}">
           <td >{{ $no }}</td>
-          <td style="width:140px ; text-align: center;" nowrap>
-            <a id="btnedit_sim" href="#" onclick="editsim({{ $data->idsim }})" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal_sim" >Edit</a> | 
-            <a href="#" onclick="hapusbarissim({{ $data->idsim }})" class="btn btn-sm btn-danger">Hapus</a>
+          <td style="width:80px ; text-align: center;" nowrap>
+            <a id="btnedit_sim" href="#" onclick="editsim({{ $data->idsim }})" title="Edit Data" data-toggle="modal" data-target="#modal_sim" ><i class="fas fa-edit mr-2"></i></a> 
+            <a href="#" onclick="hapusbarissim({{ $data->idsim }})" title="Hapus Data"><i class="fas fa-trash mr-2"></i></a>
           </td>
 
           <td><input style="width:100px ;" class="input_table" id="no_sim{{ $data->idsim }}" readonly type="text" name="no_sim[]" value="{{ $data->no_sim }}"></td>

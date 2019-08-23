@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables/dataTables.bootstrap4.min.css') }}"> --}}
   <link rel="stylesheet" href="{{ asset('adminlte/plugins/select2/css/select2.min.css') }}">
   <link rel="stylesheet" href="{{ asset('adminlte/plugins/select2/css/select2.css') }}">
+
   <style type="text/css">
   .input_table{
     border: none;
@@ -126,9 +127,9 @@
 
 <script src="{{ asset('adminlte/plugins/datatables/jquery.dataTables.js') }}"></script>
 <script src="{{ asset('adminlte/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('adminlte/plugins/datatables/dataTables.bootstrap4.js') }}"></script>
+{{-- <script src="{{ asset('adminlte/plugins/datatables/dataTables.bootstrap4.js') }}"></script>
 <script src="{{ asset('adminlte/plugins/datatables/dataTables.bootstrap4.min.js') }}"></script>
-{{-- <script src="{{ asset('js/dataTables.buttons.min.js') }}"></script> --}}
+<script src="{{ asset('js/dataTables.buttons.min.js') }}"></script> --}}
 <script src="{{ asset('adminlte/plugins/select2/js/select2.js') }}"></script>
 <script src="{{ asset('adminlte/plugins/select2/js/select2.min.js') }}"></script>
 
@@ -145,9 +146,6 @@
                 e.preventDefault();
             } 
         });
-
-            // $('#tableroledetail').DataTable();
-            
 
         } );
 
@@ -166,6 +164,7 @@
             $('#selectmenu').select2();
 
 
+
         } );
 
         function setmenu(id){
@@ -174,28 +173,29 @@
             idmenu = $("#idmenu"+id).val();
             // console.log(id);
             if (id=='0'){
-                idp = $('#selectmenu option:selected').val();
+                idp = idmenu;
             }
 
             $("#selectmenu").empty();
                 // $("#selectmenu").append('<option>-- Pilih --</option>');
+                        console.log(idp);
+
                 $.ajax({
                     url: base_url+"/getMenu/"+idp,
-                  success: function(data){
-                    var json = JSON.parse(data);
-                    console.log(id);
+                    success: function(data){
+                        var json = JSON.parse(data);
 
-                    $.each(json.menu, function(i, item) {
+                        $.each(json.menu, function(i, item) {
 
-                        $("#selectmenu").append('<option value="'+item.idmenu+'">'+item.nama_menu+'</option>');
+                            $("#selectmenu").append('<option value="'+item.idmenu+'">'+item.nama_menu+'</option>');
 
-                        if (item.idmenu == idmenu){
-                            $("#selectmenu option[value='" + item.idmenu +"']").attr("selected","selected");
-                        }
-                    });
+                            if (item.idmenu == idmenu){
+                                $("#selectmenu option[value='" + item.idmenu +"']").attr("selected","selected");
+                            }
+                        });
 
-                }
-            });
+                    }
+                });
             }
 
             function refreshroledetail(){
@@ -243,8 +243,8 @@
             var markup = '<tr id="bariske'+idbaris+'">'+
             '<td>'+idbaris+'</td>'+
             '<td style="width:140px ; text-align: center;" nowrap>'+
-            '<a id="btnedit_roledetail" href="#" onclick="editroledetail('+idbaris+')" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal_roledetail" >Edit</a> | '+
-            '<a href="#" onclick="hapusbarisroledetail('+idbaris+')" class="btn btn-sm btn-danger">Hapus</a>'+
+            '<a id="btnedit_roledetail" href="#" onclick="editroledetail('+idbaris+')" data-toggle="modal" data-target="#modal_roledetail" title="Edit Data"><i class="fas fa-edit mr-2"></i></a>'+
+            '<a href="#" onclick="hapusbarisroledetail('+idbaris+')" title="Hapus Data"> <i class="fas fa-trash mr-2"></i></a>'+
             '</td>'+
 
             '<td><input style="width:250px ;" class="input_table" id="nama_menu'+idbaris+'" readonly type="text" name="nama_menu[]" value="'+$('#selectmenu option:selected').text()+'"></td>'+
@@ -265,7 +265,23 @@
         }
 
         function hapusbarisroledetail(id){
-            $("#bariske"+id).remove();
+
+          Swal.fire({
+            title: "Hapus Data ?",
+            text: "Hapus Data Akses",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: '#DD6B55',
+            confirmButtonText: 'Ya, Hapus',
+        // closeOnConfirm: false,
+                //closeOnCancel: false
+
+            }).then(function(isConfirm){
+              if (isConfirm.value===true){
+                $("#bariske"+id).remove();
+            }
+        });
+            // $("#bariske"+id).remove();
         }
 
     </script>

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Role;
-use App\RoleDetail;
-use App\User;
-use App\Menu;
+use App\Model\Role;
+use App\Model\RoleDetail;
+use App\Model\User;
+use App\Model\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Session;
@@ -32,17 +32,14 @@ class RoleController extends Controller
     public function cekakses()
     {
         $akses=DB::select('SELECT * from vakses
-            WHERE id = '.Auth::id().' and Nama_Menu="Role"');
+            WHERE id = '.Auth::id().' and Nama_Menu="Role" limit 1');
 
 
 
         if (!$akses){
             return abort(404);
         }else{
-            Session::put('lihat', $akses[0]->lihat);
             Session::put('tambah', $akses[0]->tambah);
-            Session::put('ubah', $akses[0]->ubah);
-            Session::put('hapus', $akses[0]->hapus);
             return $akses;
         }
 
@@ -50,12 +47,6 @@ class RoleController extends Controller
 
     public function index(){   
         $aksesdata = $this->cekakses();
-
-
-
-
-        // $Role = Role::orderBy('IDRole','Desc')->where('is_deleted',0)->get();
-        // dd($Role);
 
         return view('masterrole.role');
       /**
@@ -71,17 +62,36 @@ class RoleController extends Controller
         ->addIndexColumn()
 
         ->addColumn('action', function($row){
+          
+        $akses = $this->cekakses();
+
+          if ($akses[0]->ubah=='Tidak' && $akses[0]->hapus=='Tidak'  ){
           $btn = '<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
                   <div class="btn-group" role="group">
-                    <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button id="btnGroupDrop1" type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" disabled>
                       Tindakan
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                      <a class="dropdown-item" href="'.url('/Role/'.$row->idrole.'/edit').'"><i class="fas fa-edit mr-2"></i>Ubah</a>
-                      <a class="dropdown-item" onclick="hapusRole('.$row->idrole.')"><i class="fas fa-trash mr-2"></i>Hapus</a>
-                    </div>
+                    </button>                    
+                  
                   </div>
                 </div>';
+          }else {
+          $btn = '<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                  <div class="btn-group" role="group">
+                    <button id="btnGroupDrop1" type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                      Tindakan
+                    </button>                    
+                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">';
+                    if ($akses[0]->ubah=='Ya'){
+                    $btn = $btn. '<a class="dropdown-item" href="'.url('/Role/'.$row->idrole.'/edit').'"><i class="fas fa-edit mr-2"></i>Ubah</a>';
+                    }  
+                    if ($akses[0]->hapus=='Ya'){
+                    $btn = $btn.  '<a class="dropdown-item" onclick="hapusRole('.$row->idrole.')"><i class="fas fa-trash mr-2"></i>Hapus</a>';
+                    }  
+                  $btn = $btn.'</div>
+                  </div>
+                </div>';
+
+          }
 
 
           return $btn;
@@ -150,7 +160,7 @@ class RoleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Role  $Role
+     * @param  \App\Model\Role  $Role
      * @return \Illuminate\Http\Response
      */
     public function show(Role $Role)
@@ -161,7 +171,7 @@ class RoleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Role  $Role
+     * @param  \App\Model\Role  $Role
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -181,7 +191,7 @@ class RoleController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Role  $Role
+     * @param  \App\Model\Role  $Role
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -228,7 +238,7 @@ class RoleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Role  $Role
+     * @param  \App\Model\Role  $Role
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -263,7 +273,7 @@ class RoleController extends Controller
         }
     }
 
-    public function getmenu($id){
+    public function getMenu($id){
         $menu = Menu::orderBy('idmenu','Asc')->get();
 
         echo json_encode([

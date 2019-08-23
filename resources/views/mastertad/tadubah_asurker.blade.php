@@ -3,7 +3,7 @@
           <div class="card-body">
       
             <span style="float: right;">
-                <a href="#" class="btn btn-info btn-sm mb-2" id="btn-modal-tambah" onclick="refreshasker()" data-toggle="modal" data-target="#modal_asker">Tambah Data asker</a>    
+                <a href="#" class="btn btn-primary btn-sm mb-2" id="btn-modal-tambah" onclick="refreshasker()" data-toggle="modal" data-target="#modal_asker"><i class="fas fa-plus mr-2"></i>Tambah Data Asker</a>    
             </span>
             <div class="table-responsive table-sm">
             <table id="tabelasker" class="table table-bordered">
@@ -26,11 +26,11 @@
                 <?php $no = 0;?>
                     @foreach ($TadAsker as $data)
                       <?php $no++ ;?>
-                      <tr id="bariske{{ $data->idasker }}">
+                      <tr id="barisaskerke{{ $data->idasker }}">
                         <td >{{ $no }}</td>
-                        <td style="width:140px ; text-align: center;" nowrap>
-                          <a id="btnedit_asker" href="#" onclick="editasker({{ $data->idasker }})" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal_asker" >Edit</a> | 
-                          <a href="#" onclick="hapusbarisasker({{ $data->idasker }})" class="btn btn-sm btn-danger">Hapus</a>
+                        <td style="width:80px ; text-align: center;" nowrap>
+                          <a id="btnedit_asker" href="#" onclick="editasker({{ $data->idasker }})" title="Edit Data" data-toggle="modal" data-target="#modal_asker" ><i class="fas fa-edit mr-2"></i></a> 
+                          <a href="#" onclick="hapusbarisasker({{ $data->idasker }})" title="Hapus Data"><i class="fas fa-trash mr-2"></i></a>
                         </td>
                        
                        {{-- <td>{{ $data->no_kpj }}</td> --}}

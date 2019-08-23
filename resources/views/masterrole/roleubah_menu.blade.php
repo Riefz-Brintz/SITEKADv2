@@ -143,8 +143,8 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button id="tambahroledetailbtn" type="button" onclick="tambahrowroledetail()" class="btn btn-primary" data-dismiss="modal">Tambah data</button>
-        <button id="updateroledetailbtn" type="button" onclick="updaterowroledetail()" class="btn btn-primary" data-dismiss="modal">Update data</button>
+        <button id="tambahroledetailbtn" type="button" onclick="tambahrowroledetail()" class="btn btn-primary" data-dismiss="modal"><i class="fas fa-save mr-2"></i>Tambah data</button>
+        <button id="updateroledetailbtn" type="button" onclick="updaterowroledetail()" class="btn btn-primary" data-dismiss="modal"><i class="fas fa-save mr-2"></i>Update data</button>
       </div>
     </div>
   </div>

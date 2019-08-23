@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Cabang;
-use App\Role;
-use App\User;
-use App\Menu;
+use App\Model\Cabang;
+use App\Model\Role;
+use App\Model\User;
+use App\Model\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Session;
-
+use DataTables;
+use Response;
 use DB;
 
 class UserController extends Controller
@@ -34,10 +35,7 @@ class UserController extends Controller
         if (!$akses){
             return abort(404);
         }else{
-            Session::put('lihat', $akses[0]->lihat);
             Session::put('tambah', $akses[0]->tambah);
-            Session::put('ubah', $akses[0]->ubah);
-            Session::put('hapus', $akses[0]->hapus);
             return $akses;
         }
 
@@ -49,13 +47,51 @@ class UserController extends Controller
         $User = User::orderBy('id','Desc')->where('is_deleted',0)->with('getcabang','getrole')->get();
 
         return view('masterUser.User',compact('User'));
-      /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
 
-  }
+    }
+
+    public function tampil_data_user(){
+        return Datatables::of(User::orderBy('id','Desc')->where('is_deleted',0)->with('getcabang','getrole')->get())
+        ->addIndexColumn()
+
+        ->addColumn('action', function($row){
+          
+        $akses = $this->cekakses();
+
+          if ($akses[0]->ubah=='Tidak' && $akses[0]->hapus=='Tidak'  ){
+          $btn = '<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                  <div class="btn-group" role="group">
+                    <button id="btnGroupDrop1" type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" disabled>
+                      Tindakan
+                    </button>                    
+                  
+                  </div>
+                </div>';
+          }else {
+          $btn = '<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                  <div class="btn-group" role="group">
+                    <button id="btnGroupDrop1" type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                      Tindakan
+                    </button>                    
+                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">';
+                    if ($akses[0]->ubah=='Ya'){
+                    $btn = $btn. '<a class="dropdown-item" href="'.url('/Role/'.$row->idrole.'/edit').'"><i class="fas fa-edit mr-2"></i>Ubah</a>';
+                    }  
+                    if ($akses[0]->hapus=='Ya'){
+                    $btn = $btn.  '<a class="dropdown-item" onclick="hapusRole('.$row->idrole.')"><i class="fas fa-trash mr-2"></i>Hapus</a>';
+                    }  
+                  $btn = $btn.'</div>
+                  </div>
+                </div>';
+
+          }
+
+
+          return $btn;
+      })
+      //   ->rawColumns(['action'])
+        ->make(true);
+    }
 
 
   public function create(){
@@ -103,7 +139,7 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\User  $User
+     * @param  \App\Model\User  $User
      * @return \Illuminate\Http\Response
      */
     public function show(User $User)
@@ -114,7 +150,7 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\User  $User
+     * @param  \App\Model\User  $User
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -134,7 +170,7 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\User  $User
+     * @param  \App\Model\User  $User
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -163,7 +199,7 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\User  $User
+     * @param  \App\Model\User  $User
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

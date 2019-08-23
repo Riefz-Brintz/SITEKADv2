@@ -213,18 +213,21 @@
                   <p>Data User</p>
                 </a>
               </li>
+               <li class="nav-item">
+                <a href="{{ route('Jenisbq') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Data Jenis BQ</p>
+                </a>
+              </li>
+
+
               <li class="nav-item">
                 <a href="pages/examples/login.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Login</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="pages/examples/register.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Register</p>
-                </a>
-              </li>
+         
               <li class="nav-item">
                 <a href="pages/examples/lockscreen.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>

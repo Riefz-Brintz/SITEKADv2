@@ -2,7 +2,7 @@
 
  <div class="card-body">
   <span style="float: right;">
-    <a href="#" class="btn btn-info btn-sm" id="btn-modal-tambah" onclick="refreshkk()" data-toggle="modal" data-target="#modal_kk2">Tambah Data kk</a>    
+    <a href="#" class="btn btn-primary btn-sm mb-2" id="btn-modal-tambah" onclick="refreshkk()" data-toggle="modal" data-target="#modal_kk2"><i class="fas fa-plus mr-2"></i>Tambah Data kk</a>    
   </span>
   <div class="table-responsive table-sm">
     <table id="tabelkk" class="table table-bordered">
@@ -27,11 +27,11 @@
         <?php $no = 0;?>
         @foreach ($Tadkk as $data)
         <?php $no++ ;?>
-        <tr id="bariske{{ $data->idkktad }}">
+        <tr id="bariskkke{{ $data->idkktad }}">
           <td >{{ $no }}</td>
-          <td style="width:140px ; text-align: center;" nowrap>
-            <a id="btnedit_kk" href="#" onclick="editkk({{ $data->idkktad }})" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal_kk2" >Edit</a> | 
-            <a href="#" onclick="hapusbariskk({{ $data->idkktad }})" class="btn btn-sm btn-danger">Hapus</a>
+          <td style="width:80px ; text-align: center;" nowrap>
+            <a id="btnedit_kk" href="#" onclick="editkk({{ $data->idkktad }})" title="Edit Data" data-toggle="modal" data-target="#modal_kk2" ><i class="fas fa-edit mr-2"></i></a>
+            <a href="#" onclick="hapusbariskk({{ $data->idkktad }})" title="Hapus Data"><i class="fas fa-trash mr-2"></i></a>
           </td>
 
           {{-- <td>{{ $data->nik_kk }}</td> --}}

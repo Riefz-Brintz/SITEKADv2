@@ -3,12 +3,13 @@
 @section('css')
 <!-- DataTables -->
 <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables/dataTables.bootstrap4.css') }}">
+ <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables/dataTables.bootstrap4.min.css') }}">
 <!-- Theme style -->
 <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
 
 <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
 <link rel="stylesheet" href="{{ asset('css/buttons.bootstrap4.min.css') }}">
-<link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap4.min.css') }}">
+{{-- <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap4.min.css') }}"> --}}
 
 @endsection
 
@@ -44,7 +45,7 @@
           <h3 class="card-title">Data TAD
             <span style="float: right;">
               <a href="{{ route('Tad.tambah') }}" class="btn btn-primary a-btn-slide-text">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                <i class="fas fa-plus mr-2"></i>
                 <span><strong>Tambah Data TAD</strong></span>            
               </a>
             </h3>
@@ -52,7 +53,7 @@
         </div>
         <!-- /.card-header -->
         <div class="card-body" >
-          <table id="example" class="table table-bordered table-striped">
+          <table id="example" class="table ">
            <thead>
             <tr>
               <th>No</th>
@@ -78,46 +79,11 @@
             </tr>
           </thead>
           <tbody>
-            <?php $no = 0;?>
-            @foreach ($Tad as $item)
-            <?php $no++ ;?>
-            <tr>
-              <td autowidth>{{ $no }}</td>
-              <td >
-                <div class="btn-group">
-                  <button type="button" class="btn btn-info">Action</button>
-                  <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-                    <span class="caret"></span>
-                    <span class="sr-only">Toggle Dropdown</span>
-                  </button>
-                  <div class="dropdown-menu" role="menu">
-                    <a class="dropdown-item" href="{{ route('Tad.ubah',$item->IDTad) }}">Ubah</a>
-                    <a class="dropdown-item" onclick="hapustad({{ $item->IDTad }})">Hapus</a>
-                  </div>
-                </div>
-                
-              </td>
-              <td>{{ $item->no_ektp }}</td>
-              <td>{{ $item->nik_tad }}</td> 
-              <td>{{ $item->idcabang }}</td> 
-              <td>{{ $item->nm_lengkaptad }}</td> 
-              <td>{{ $item->tmp_lahir }}</td> 
-              <td>{{ $item->tgl_lahir }}</td> 
-              <td>{{ $item->umur }}</td> 
-              <td>{{ $item->telp }}</td> 
-              <td>{{ $item->jenis_kel }}</td> 
-              <td>{{ $item->agama }}</td> 
-              <td>{{ $item->statusperkawinan }}</td> 
-              <td>{{ $item->warga_negara }}</td> 
-              <td>{{ $item->gol_darah }}</td> 
-              <td>{{ $item->nm_ibukandung }}</td> 
-              <td>{{ $item->catatan }}</td> 
-              <td>{{ $item->emailadd }}</td> 
-              <td>{{ $item->npwptad }}</td> 
-
-            </tr>
-            @endforeach
+            
           </tbody>
+          <tfoot>
+            
+          </tfoot>
         </table>
       </div>
       <!-- /.card-body -->
@@ -149,86 +115,11 @@
 <script src="{{ asset('js/buttons.colVis.min.js') }}"></script>
 
 
-    {{-- <script>
-
-      $(document).ready(function(){
-
-        // Data table for serverside
-
-        $('#example').DataTable({
-          "processing": true,
-          "serverSide": true,
-          "ajax":{
-           "url": "{{ url('TadList') }}",
-           "dataType": "json",
-           "type": "POST",
-           "data":{ _token: "{{csrf_token()}}"}
-         },
-         "columns": [
-          { "data": "id" },
-          {"data": "action" },
-          {"data": "no_ektp"},
-          {"data": "nik_tad"},
-          {"data": "idcabang"},
-          {"data": "nm_lengkaptad"},
-          {"data": "tmp_lahir"},
-          {"data": "tgl_lahir"},
-          {"data": "umur"},
-          {"data": "telp"},
-          {"data": "jenis_kel"},
-          {"data": "agama"},
-          {"data": "statusperkawinan"},
-          {"data": "warga_negara"},
-          {"data": "gol_darah"},
-          {"data": "nm_ibukandung"},
-          {"data": "catatan"},
-          {"data": "emailadd"},
-          {"data": "npwptad"},
-          {"data": "gambar_ektp"},
-          {"data": "IDTad"},
-     
-         ],
-         aoColumnDefs: [
-         {
-           bSortable: false,
-           aTargets: [ -1 ]
-         }
-         ]  
-       });
-      });
-    </script> --}}
-
-
-    <!-- page script -->
+    
     <script>
 
-      // $(function () {
-      //   $("#example1").DataTable();
-      //   $('#example2').DataTable({
-      //     "paging": true,
-      //     "lengthChange": false,
-      //     "searching": false,
-      //     "ordering": true,
-      //     "info": true,
-      //     "autoWidth": false,
-      //   });
-      // });
-
       $(document).ready(function() {
-        var table = $('#example').DataTable( {
-            // lengthChange: false,
-            paging: true,
-            // autoWidth: true,
-            scrollX: false,
-            info: true,
-            // scrollY:        '100vh',
-            scrollCollapse: true,
-            responsive: true,
-            buttons: [ 'excel' ]
-          } );
-
-        table.buttons().container()
-        .appendTo( '#example_wrapper .col-md-6:eq(0)' );
+         $('#example').css('min-height','2000');
       } );
 
 
@@ -241,4 +132,50 @@
       }
 
     </script>
+
+    <script>
+    $(function() {
+      $('#example').DataTable({
+        processing: true,
+        serverSide: true,
+        responsive: true,
+        // scrollX:"300px",
+        // responsive:true,
+        language: {
+          searchPlaceholder: 'Search...',
+          sSearch: '',
+          lengthMenu: '_MENU_ items/page',
+        },
+        ajax: '{{ route('tampil_data_tad') }}',
+        columns: [
+         {
+          "data": "IDTad",
+          render: function (data, type, row, meta) {
+              return meta.row + meta.settings._iDisplayStart + 1;
+          }},
+        { data: 'action', name: 'action', orderable: false, searchable: false},
+        { data: 'no_ektp', name: 'no_ektp' },
+        { data: 'nik_tad', name: 'nik_tad' },
+        { data: 'cabang', name: 'cabang' },
+        { data: 'nm_lengkaptad', name: 'nm_lengkaptad' },
+        { data: 'tmp_lahir', name: 'tmp_lahir' },
+        { data: 'tgl_lahir', name: 'tgl_lahir' },
+        { data: 'umur', name: 'umur' },
+        { data: 'telp', name: 'telp' },
+        { data: 'jenis_kel', name: 'jenis_kel' },
+        { data: 'agama', name: 'agama' },
+        { data: 'statusperkawinan', name: 'statusperkawinan' },
+        { data: 'warga_negara', name: 'warga_negara' },
+        { data: 'gol_darah', name: 'gol_darah' },
+        { data: 'nm_ibukandung', name: 'nm_ibukandung' },
+        { data: 'catatan', name: 'catatan' },
+        { data: 'emailadd', name: 'emailadd' },
+        { data: 'npwptad', name: 'npwptad' }
+        ],
+
+      });
+      
+    });
+
+  </script>
     @endsection

@@ -4,7 +4,7 @@
 
  <div class="card-body">
   <span style="float: right;">
-    <a href="#" class="btn btn-info btn-sm mb-2" id="btn-modal-tambahalamat" onclick="refreshalamat()" data-toggle="modal" data-target="#modal_alamat2">Tambah Data Alamat</a>    
+    <a href="#" class="btn btn-primary btn-sm mb-2" id="btn-modal-tambahalamat" onclick="refreshalamat()" data-toggle="modal" data-target="#modal_alamat2"><i class="fas fa-plus mr-2"></i>Tambah Data Alamat</a>    
   </span>
   <div class="table-responsive table-sm">
   <table id="tabelalamat" class="table table-bordered">
@@ -31,12 +31,12 @@
       <?php $no = 0;?>
       @foreach ($TadAlamat as $data)
       <?php $no++ ;?>
-      <tr id="bariske{{ $data->idalamattad }}">
+      <tr id="barisalamatke{{ $data->idalamattad }}">
         <td >{{ $no }}</td>
-        <td style="width:140px ; text-align: center;" nowrap >
+        <td style="width:80px ; text-align: center;" nowrap >
 
-          <a id="btnedit_alamat" href="#" onclick="editalamat({{ $data->idalamattad }})" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal_alamat2" >Edit</a> | 
-          <a href="#" onclick="hapusbarisalamat({{ $data->idalamattad }})" class="btn btn-sm btn-danger">Hapus</a>
+          <a id="btnedit_alamat" href="#" onclick="editalamat({{ $data->idalamattad }})" data-toggle="modal" data-target="#modal_alamat2" title="Edit Data" ><i class="fas fa-edit mr-2"></i></a>
+          <a href="#" onclick="hapusbarisalamat({{ $data->idalamattad }})" title="Hapus Data"><i class="fas fa-trash mr-2"></i></a>
         </td>
 
         {{-- <td>{{ $data->status_alamat }}</td> --}}
